@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/media/logan/Nouveau nom/CNAM/Annee2/TestUnit/Cours/PuissanceQuatre/MorpionApp.csproj",
+      "projectUniqueName": "/media/logan/Nouveau nom/CNAM/Annee2/TestUnit/test-xunit/1-PuissanceQuatre/MorpionApp.csproj",
       "projectName": "MorpionApp",
-      "projectPath": "/media/logan/Nouveau nom/CNAM/Annee2/TestUnit/Cours/PuissanceQuatre/MorpionApp.csproj",
+      "projectPath": "/media/logan/Nouveau nom/CNAM/Annee2/TestUnit/test-xunit/1-PuissanceQuatre/MorpionApp.csproj",
       "packagesPath": "/home/logan/.nuget/packages/",
-      "outputPath": "/media/logan/Nouveau nom/CNAM/Annee2/TestUnit/Cours/PuissanceQuatre/obj/",
+      "outputPath": "/media/logan/Nouveau nom/CNAM/Annee2/TestUnit/test-xunit/1-PuissanceQuatre/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/logan/.nuget/NuGet/NuGet.Config"
