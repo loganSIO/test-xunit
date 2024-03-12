@@ -15,8 +15,8 @@ namespace MorpionApp
             switch (Console.ReadKey(true).Key)
             {
                 case ConsoleKey.X:
-                    Morpion morpion = new Morpion();
-                    morpion.Game();
+                    Game morpion = new Game();
+                    morpion.Start();
                     break;
                 case ConsoleKey.P:
                     PuissanceQuatre puissanceQuatre = new PuissanceQuatre();
@@ -35,8 +35,8 @@ namespace MorpionApp
                     switch (Console.ReadKey(true).Key)
                     {
                         case ConsoleKey.X:
-                            Morpion morpion = new Morpion();
-                            morpion.Game();
+                            Game morpion = new Game();
+                            morpion.Start();
                             break;
                         case ConsoleKey.P:
                             PuissanceQuatre puissanceQuatre = new PuissanceQuatre();
