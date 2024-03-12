@@ -8,6 +8,11 @@ namespace MorpionApp
 {
     public class Morpion
     {
+        private const int BoardSizeRows = 3;
+        private const int BoardSizeColumns = 3;
+        private const char EmptyCell = ' ';
+        private const char Player1Symbol = 'X';
+        private const char Player2Symbol = 'O';
         private bool _quitterJeu = false;
         private bool _tourDuJoueur = true;
         private char[,] _grille;
@@ -18,23 +23,23 @@ namespace MorpionApp
 
         public Morpion()
         {
-            _grille = new char[3, 3];
+            _grille = new char[BoardSizeColumns, BoardSizeRows];
         }
 
         private void InitializeGameBoard()
         {
-            for (int row = 0; row < 3; row++)
+            for (int row = 0; row < BoardSizeRows; row++)
             {
-                for (int col = 0; col < 3; col++)
+                for (int col = 0; col < BoardSizeColumns; col++)
                 {
-                    _grille[row, col] = ' ';
+                    _grille[row, col] = EmptyCell;
                 }
             }
         }
 
         public void BoucleJeu()
         {
-            _grille = new char[3, 3];
+            _grille = new char[BoardSizeColumns, BoardSizeRows];
 
             while (true)
             {
@@ -45,7 +50,7 @@ namespace MorpionApp
                     if (_tourDuJoueur)
                     {
                         tourJoueur();
-                        if (verifVictoire('X'))
+                        if (verifVictoire(Player1Symbol))
                         {
                             finPartie("Le joueur 1 à gagné !");
                             break;
@@ -54,7 +59,7 @@ namespace MorpionApp
                     else
                     {
                         tourJoueur2();
-                        if (verifVictoire('O'))
+                        if (verifVictoire(Player2Symbol))
                         {
                             finPartie("Le joueur 2 à gagné !");
                             break;
@@ -127,7 +132,7 @@ namespace MorpionApp
                         break;
 
                     case ConsoleKey.Enter:
-                        if (_grille[row, column] == ' ')
+                        if (_grille[row, column] == EmptyCell)
                         {
                             _grille[row, column] = playerSymbol;
                             moved = true;
@@ -145,12 +150,12 @@ namespace MorpionApp
 
         public void tourJoueur()
         {
-            HandlePlayerTurn('X');
+            HandlePlayerTurn(Player1Symbol);
         }
 
         public void tourJoueur2()
         {
-            HandlePlayerTurn('O');
+            HandlePlayerTurn(Player2Symbol);
         }
 
 
@@ -170,7 +175,7 @@ namespace MorpionApp
 
         private bool CheckRowWin(char playerSymbol)
         {
-            for (int row = 0; row < 3; row++)
+            for (int row = 0; row < BoardSizeRows; row++)
             {
                 if (_grille[row, 0] == playerSymbol && _grille[row, 1] == playerSymbol && _grille[row, 2] == playerSymbol)
                 {
@@ -182,7 +187,7 @@ namespace MorpionApp
 
         private bool CheckColumnWin(char playerSymbol)
         {
-            for (int col = 0; col < 3; col++)
+            for (int col = 0; col < BoardSizeColumns; col++)
             {
                 if (_grille[0, col] == playerSymbol && _grille[1, col] == playerSymbol && _grille[2, col] == playerSymbol)
                 {
@@ -204,9 +209,9 @@ namespace MorpionApp
         }
 
         public bool verifEgalite() =>
-            _grille[0, 0] != ' ' && _grille[1, 0] != ' ' && _grille[2, 0] != ' ' &&
-            _grille[0, 1] != ' ' && _grille[1, 1] != ' ' && _grille[2, 1] != ' ' &&
-            _grille[0, 2] != ' ' && _grille[1, 2] != ' ' && _grille[2, 2] != ' ';
+            _grille[0, 0] != EmptyCell && _grille[1, 0] != EmptyCell && _grille[2, 0] != EmptyCell &&
+            _grille[0, 1] != EmptyCell && _grille[1, 1] != EmptyCell && _grille[2, 1] != EmptyCell &&
+            _grille[0, 2] != EmptyCell && _grille[1, 2] != EmptyCell && _grille[2, 2] != EmptyCell;
 
 
         public void finPartie(string msg)
