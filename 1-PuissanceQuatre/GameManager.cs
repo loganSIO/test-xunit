@@ -24,11 +24,11 @@ namespace MorpionApp {
     private Game GetSelectedGame() {
       switch (_userInterface.GetGameSelection()) {
         case GameSelection.Morpion:
-          return new Game();
+          return new MorpionGame();
         // case GameSelection.PuissanceQuatre:
         //   return new PuissanceQuatre();
         default:
-          return new Game();
+          return new MorpionGame();
       }
     }
   }

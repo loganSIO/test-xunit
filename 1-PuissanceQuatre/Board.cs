@@ -110,7 +110,7 @@ namespace MorpionApp {
       return true;
     }
 
-    public bool checkVictory(char symbol)
+    public bool CheckVictory(char symbol)
     {
         return CheckRowWin(symbol) || CheckColumnWin(symbol) || CheckDiagonalWin(symbol);
     }
