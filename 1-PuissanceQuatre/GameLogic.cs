@@ -3,6 +3,7 @@ namespace MorpionApp {
     protected Board _board;
     protected Player _player1;
     protected Player _player2;
+    protected int _consecutiveSymbols;
     protected bool _quitGame = false;
     protected bool _currentPlayerTurn = true;
 
@@ -14,13 +15,13 @@ namespace MorpionApp {
 
     public virtual void Start() {
       while (true) {
-      _board = new Board(3, 3);
+      _board = new Board(_board.Rows, _board.Columns);
 
       while (!_quitGame) {
         char currentPlayerSymbol = _currentPlayerTurn ? _player1.Symbol : _player2.Symbol;
         HandlePlayerTurnInput(currentPlayerSymbol, Board.EmptyCell);
 
-        if (_board.CheckVictory(currentPlayerSymbol)) {
+        if (_board.CheckVictory(currentPlayerSymbol, _consecutiveSymbols)) {
           EndOfGame($"Le joueur {(_currentPlayerTurn ? 1 : 2)} a gagné !");
           break;
         }

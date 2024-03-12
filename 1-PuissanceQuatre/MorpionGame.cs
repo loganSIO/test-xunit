@@ -2,6 +2,7 @@ namespace MorpionApp {
   public class MorpionGame : Game {
 
     public MorpionGame() : base(3, 3) {
+      _consecutiveSymbols = 3;
     }
 
     protected override (int, int) HandlePlayerTurnInput(char playerSymbol, char EmptyCell) {

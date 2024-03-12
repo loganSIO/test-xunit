@@ -1,12 +1,13 @@
 namespace MorpionApp {
   public class Board {
+    public int Rows { get { return _rows; } }
+    public int Columns { get { return _columns; } }
     private
     readonly int _rows;
     private
     readonly int _columns;
     public
     const char EmptyCell = ' ';
-
     private char[, ] _grid;
 
     public Board(int rows, int columns) {
@@ -39,29 +40,31 @@ namespace MorpionApp {
       return true;
     }
 
-    public bool CheckRowWin(char symbol) {
+    public bool CheckRowWin(char symbol, int consecutiveSymbols) {
       for (int row = 0; row < _rows; row++) {
-        bool win = true;
-        for (int col = 0; col < _columns; col++) {
-          if (_grid[row, col] != symbol) {
-            win = false;
-            break;
+        for (int col = 0; col < _columns - consecutiveSymbols; col++) {
+          bool win = true;
+          for (int i = 0; i < consecutiveSymbols; i++) {
+            if (_grid[row, col + i] != symbol) {
+              win = false;
+              break;
+            }
+          }
+
+          if (win) {
+            return true;
           }
         }
-
-        if (win) {
-          return true;
-        }
       }
-
       return false;
     }
 
-    public bool CheckColumnWin(char symbol) {
+    public bool CheckColumnWin(char symbol, int consecutiveSymbols) {
       for (int col = 0; col < _columns; col++) {
+        for (int row = 0; row <= _rows - consecutiveSymbols; row++) {
         bool win = true;
-        for (int row = 0; row < _rows; row++) {
-          if (_grid[row, col] != symbol) {
+        for (int i = 0; i < consecutiveSymbols; i++) {
+          if (_grid[row + i, col] != symbol) {
             win = false;
             break;
           }
@@ -71,34 +74,43 @@ namespace MorpionApp {
           return true;
         }
       }
-
+    }
       return false;
     }
 
-    public bool CheckDiagonalWin(char symbol) {
-      for (int i = 0; i < Math.Min(_rows, _columns); i++) {
-        if (_grid[i, i] != symbol) {
-          break;
-        }
-
-        if (i == Math.Min(_rows, _columns) - 1) {
-          return true;
+    public bool CheckDiagonalWin(char symbol, int consecutiveSymbols) {
+      for (int row = 0; row <= _rows - consecutiveSymbols; row++) {
+        for (int col = 0; col <= _columns - consecutiveSymbols; col++) {
+          bool win = true;
+          for (int i = 0; i < consecutiveSymbols; i++) {
+            if (_grid[row + i, col + i] != symbol) {
+              win = false;
+              break;
+            }
+          }
+          if (win) {
+            return true;
+          }
         }
       }
 
-      for (int i = 0; i < Math.Min(_rows, _columns); i++) {
-        if (_grid[i, _columns - 1 - i] != symbol) {
-          break;
-        }
-
-        if (i == Math.Min(_rows, _columns) - 1) {
-          return true;
+      for (int row = 0; row <= _rows - consecutiveSymbols; row++) {
+        for (int col = _columns - 1; col >= consecutiveSymbols - 1; col--) {
+          bool win = true;
+          for (int i = 0; i < consecutiveSymbols; i++) {
+            if (_grid[row + i, col - i] != symbol) {
+              win = false;
+              break;
+            }
+          }
+          if (win) {
+            return true;
+          }
         }
       }
 
       return false;
     }
-
     public bool CheckTie() {
       for (int row = 0; row < _rows; row++) {
         for (int col = 0; col < _columns; col++) {
@@ -110,9 +122,9 @@ namespace MorpionApp {
       return true;
     }
 
-    public bool CheckVictory(char symbol)
+    public bool CheckVictory(char symbol, int consecutiveSymbols)
     {
-        return CheckRowWin(symbol) || CheckColumnWin(symbol) || CheckDiagonalWin(symbol);
+        return CheckRowWin(symbol, consecutiveSymbols) || CheckColumnWin(symbol, consecutiveSymbols) || CheckDiagonalWin(symbol, consecutiveSymbols);
     }
 
     public void Display() {
