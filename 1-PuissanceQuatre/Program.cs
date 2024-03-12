@@ -16,7 +16,7 @@ namespace MorpionApp
             {
                 case ConsoleKey.X:
                     Morpion morpion = new Morpion();
-                    morpion.BoucleJeu();
+                    morpion.Game();
                     break;
                 case ConsoleKey.P:
                     PuissanceQuatre puissanceQuatre = new PuissanceQuatre();
@@ -36,7 +36,7 @@ namespace MorpionApp
                     {
                         case ConsoleKey.X:
                             Morpion morpion = new Morpion();
-                            morpion.BoucleJeu();
+                            morpion.Game();
                             break;
                         case ConsoleKey.P:
                             PuissanceQuatre puissanceQuatre = new PuissanceQuatre();
