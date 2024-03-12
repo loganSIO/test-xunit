@@ -101,7 +101,9 @@ namespace MorpionApp
                 Console.WriteLine("Choisir une case valide est appuyer sur [Entrer]");
                 Console.SetCursorPosition(column * 6 + 1, row * 4 + 1);
 
-                switch (Console.ReadKey(true).Key)
+                var key = Console.ReadKey(true).Key;
+
+                switch (key)
                 {
                     case ConsoleKey.Escape:
                         _quitterJeu = true;
@@ -131,6 +133,9 @@ namespace MorpionApp
                             moved = true;
                             _quitterJeu = false;
                         }
+                        break;
+                    default:
+                        Console.WriteLine("Touche non valide");
                         break;
                 }
             }
