@@ -76,4 +76,46 @@ Le code présente un couplage relativement fort, car les différentes parties du
 
 ## II - Les méthodes de résolution de ces problèmes
 
+### Validation de l'existant et résolution des problèmes
+
+#### Violations des principes SOLID :
+
+-   **SRP (Single Responsibility Principle)** : Diviser les classes Morpion et PuissanceQuatre en classes distinctes pour l'interface utilisateur, la logique du jeu et la gestion de l'état du jeu pour améliorer la modularité et la maintenabilité.
+
+-   **OCP (Open/Closed Principle)** : Utiliser des interfaces ou des classes abstraites pour définir des contrats génériques pour les différentes parties du jeu afin de faciliter l'extension du logiciel pour supporter d'autres jeux sans modification du code existant.
+
+-   **LSP (Liskov Substitution Principle)** : Mettre en place une hiérarchie claire de classes pour représenter différents types de jeux, facilitant ainsi l'ajout de nouveaux jeux tout en maintenant la compatibilité avec le reste du code.
+
+-   **ISP (Interface Segregation Principle)** : Diviser les interfaces en fonctionnalités spécifiques pour réduire les dépendances et rendre le code plus flexible aux changements.
+
+-   **DIP (Dependency Inversion Principle)** : Utiliser des abstractions et des injections de dépendances pour rendre le code plus flexible et moins couplé.
+
+#### Code Smells :
+
+-   **Code dupliqué** : Supprimer les codes dupliqués en factorisant le code commun dans des méthodes réutilisables.
+
+-   **BLOB (Big Lumps of code)** : Réduire la taille des classes en décomposant les méthodes longues en plusieurs méthodes plus petites et plus spécifiques.
+
+-   **Switch statements** : Éviter les grands blocs switch en utilisant des structures de données appropriées.
+
+-   **Code mort** : Supprimer le code inutilisé pour maintenir la lisibilité du code.
+
+#### Cohésion et couplage du code :
+
+-   **Cohésion du code** : Regrouper les méthodes étroitement liées autour d'une seule fonctionnalité ou d'une seule responsabilité.
+
+-   **Couplage du code** : Limiter les interactions directes entre les différentes parties du code en utilisant des interfaces et des abstractions pour définir des contrats clairs.
+
+En suivant ces méthodes, vous pourrez améliorer la qualité du code, réduire la complexité et faciliter la maintenance et l'évolutivité de votre application.
+
+#### Tests à réaliser :
+
+1.  Test unitaire pour chaque méthode publique afin de vérifier son comportement attendu.
+
+2.  Tests d'intégration pour vérifier que les différentes parties du jeu interagissent correctement les unes avec les autres.
+
+3.  Tests fonctionnels pour valider le comportement global du jeu en simulant des interactions utilisateur.
+
 ## III - Le développement des fonctionnalités manquantes
+
+Pour l'instant, je n'ai pas eu l'opportunité de mettre en place les fonctionnalités manquantes en raison de contraintes de temps. Cependant, j'ai entrepris une veille active en consultant le repository github de mes collègues pour rester informé sur les avancées et les meilleures pratiques concernant ces fonctionnalités.
