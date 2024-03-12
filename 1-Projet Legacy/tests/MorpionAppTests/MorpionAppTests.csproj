@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../MorpionApp.csproj" />
+    <ProjectReference Include="../../src/MorpionApp/MorpionApp.csproj" />
   </ItemGroup>
 
 </Project>
