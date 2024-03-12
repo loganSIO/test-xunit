@@ -8,11 +8,11 @@ namespace MorpionApp
 {
     public class Morpion
     {
-        private bool _quiterJeu = false;
+        private bool _quitterJeu = false;
         private bool _tourDuJoueur = true;
         private char[,] _grille;
 
-        public bool QuiterJeu { get { return _quiterJeu; } }
+        public bool QuiterJeu { get { return _quitterJeu; } }
         public bool TourDuJoueur { get { return _tourDuJoueur; } }
         public char[,] Grille { get { return _grille; } }
 
@@ -40,7 +40,7 @@ namespace MorpionApp
             {
                 InitializeGameBoard();
 
-                while (!_quiterJeu)
+                while (!_quitterJeu)
                 {
                     if (_tourDuJoueur)
                     {
@@ -67,7 +67,7 @@ namespace MorpionApp
                         break;
                     }
                 }
-                if (!_quiterJeu)
+                if (!_quitterJeu)
                 {
                     Console.WriteLine("Appuyer sur [Echap] pour quitter, [Entrer] pour rejouer.");
                     GetKey:
@@ -76,7 +76,7 @@ namespace MorpionApp
                             case ConsoleKey.Enter:
                                 break;
                             case ConsoleKey.Escape:
-                                _quiterJeu = true;
+                                _quitterJeu = true;
                                 Console.Clear();
                                 break;
                             default:
@@ -88,12 +88,12 @@ namespace MorpionApp
         }
 
 
-        private bool HandlePlayerTurn(char playerSymbol)
+        private (int row, int column) HandlePlayerTurn(char playerSymbol)
         {
             var (row, column) = (0, 0);
             bool moved = false;
 
-            while (!_quiterJeu && !moved)
+            while (!_quitterJeu && !moved)
             {
                 Console.Clear();
                 affichePlateau();
@@ -104,7 +104,7 @@ namespace MorpionApp
                 switch (Console.ReadKey(true).Key)
                 {
                     case ConsoleKey.Escape:
-                        _quiterJeu = true;
+                        _quitterJeu = true;
                         Console.Clear();
                         break;
 
@@ -129,13 +129,13 @@ namespace MorpionApp
                         {
                             _grille[row, column] = playerSymbol;
                             moved = true;
-                            _quiterJeu = false;
+                            _quitterJeu = false;
                         }
                         break;
                 }
             }
 
-            return moved;
+            return (row, column);
         }
 
         public void tourJoueur()
@@ -160,7 +160,7 @@ namespace MorpionApp
             Console.WriteLine("    |     |");
             Console.WriteLine("----+-----+----");
             Console.WriteLine("    |     |");
-            Console.WriteLine($" {_grille[2, 0]}  |  {_grille[1, 1]}  |  {_grille[0, 2]}");
+            Console.WriteLine($" {_grille[2, 0]}  |  {_grille[1, 1]}  |  {_grille[2, 2]}");
         }
 
         private bool CheckRowWin(char playerSymbol)
