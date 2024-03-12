@@ -8,13 +8,17 @@ namespace MorpionApp
 {
     public class Morpion
     {
-        public bool quiterJeu = false;
-        public bool tourDuJoueur = true;
-        public char[,] grille;
+        private bool _quiterJeu = false;
+        private bool _tourDuJoueur = true;
+        private char[,] _grille;
+
+        public bool QuiterJeu { get { return _quiterJeu; } }
+        public bool TourDuJoueur { get { return _tourDuJoueur; } }
+        public char[,] Grille { get { return _grille; } }
 
         public Morpion()
         {
-            grille = new char[3, 3];
+            _grille = new char[3, 3];
         }
 
         private void InitializeGameBoard()
@@ -23,22 +27,22 @@ namespace MorpionApp
             {
                 for (int col = 0; col < 3; col++)
                 {
-                    grille[row, col] = ' ';
+                    _grille[row, col] = ' ';
                 }
             }
         }
 
         public void BoucleJeu()
         {
-            grille = new char[3, 3];
+            _grille = new char[3, 3];
 
             while (true)
             {
                 InitializeGameBoard();
 
-                while (!quiterJeu)
+                while (!_quiterJeu)
                 {
-                    if (tourDuJoueur)
+                    if (_tourDuJoueur)
                     {
                         tourJoueur();
                         if (verifVictoire('X'))
@@ -56,14 +60,14 @@ namespace MorpionApp
                             break;
                         }
                     }
-                    tourDuJoueur = !tourDuJoueur;
+                    _tourDuJoueur = !_tourDuJoueur;
                     if (verifEgalite())
                     {
                         finPartie("Aucun vainqueur, la partie se termine sur une égalité.");
                         break;
                     }
                 }
-                if (!quiterJeu)
+                if (!_quiterJeu)
                 {
                     Console.WriteLine("Appuyer sur [Echap] pour quitter, [Entrer] pour rejouer.");
                     GetKey:
@@ -72,7 +76,7 @@ namespace MorpionApp
                             case ConsoleKey.Enter:
                                 break;
                             case ConsoleKey.Escape:
-                                quiterJeu = true;
+                                _quiterJeu = true;
                                 Console.Clear();
                                 break;
                             default:
@@ -83,12 +87,13 @@ namespace MorpionApp
             }
         }
 
+
         private bool HandlePlayerTurn(char playerSymbol)
         {
             var (row, column) = (0, 0);
             bool moved = false;
 
-            while (!quiterJeu && !moved)
+            while (!_quiterJeu && !moved)
             {
                 Console.Clear();
                 affichePlateau();
@@ -99,7 +104,7 @@ namespace MorpionApp
                 switch (Console.ReadKey(true).Key)
                 {
                     case ConsoleKey.Escape:
-                        quiterJeu = true;
+                        _quiterJeu = true;
                         Console.Clear();
                         break;
 
@@ -120,11 +125,11 @@ namespace MorpionApp
                         break;
 
                     case ConsoleKey.Enter:
-                        if (grille[row, column] == ' ')
+                        if (_grille[row, column] == ' ')
                         {
-                            grille[row, column] = playerSymbol;
+                            _grille[row, column] = playerSymbol;
                             moved = true;
-                            quiterJeu = false;
+                            _quiterJeu = false;
                         }
                         break;
                 }
@@ -147,22 +152,22 @@ namespace MorpionApp
         public void affichePlateau()
         {
             Console.WriteLine();
-            Console.WriteLine($" {grille[0, 0]}  |  {grille[0, 1]}  |  {grille[0, 2]}");
+            Console.WriteLine($" {_grille[0, 0]}  |  {_grille[0, 1]}  |  {_grille[0, 2]}");
             Console.WriteLine("    |     |");
             Console.WriteLine("----+-----+----");
             Console.WriteLine("    |     |");
-            Console.WriteLine($" {grille[1, 0]}  |  {grille[1, 1]}  |  {grille[1, 2]}");
+            Console.WriteLine($" {_grille[1, 0]}  |  {_grille[1, 1]}  |  {_grille[1, 2]}");
             Console.WriteLine("    |     |");
             Console.WriteLine("----+-----+----");
             Console.WriteLine("    |     |");
-            Console.WriteLine($" {grille[2, 0]}  |  {grille[1, 1]}  |  {grille[0, 2]}");
+            Console.WriteLine($" {_grille[2, 0]}  |  {_grille[1, 1]}  |  {_grille[0, 2]}");
         }
 
         private bool CheckRowWin(char playerSymbol)
         {
             for (int row = 0; row < 3; row++)
             {
-                if (grille[row, 0] == playerSymbol && grille[row, 1] == playerSymbol && grille[row, 2] == playerSymbol)
+                if (_grille[row, 0] == playerSymbol && _grille[row, 1] == playerSymbol && _grille[row, 2] == playerSymbol)
                 {
                     return true;
                 }
@@ -174,7 +179,7 @@ namespace MorpionApp
         {
             for (int col = 0; col < 3; col++)
             {
-                if (grille[0, col] == playerSymbol && grille[1, col] == playerSymbol && grille[2, col] == playerSymbol)
+                if (_grille[0, col] == playerSymbol && _grille[1, col] == playerSymbol && _grille[2, col] == playerSymbol)
                 {
                     return true;
                 }
@@ -184,8 +189,8 @@ namespace MorpionApp
 
         private bool CheckDiagonalWin(char playerSymbol)
         {
-            return (grille[0, 0] == playerSymbol && grille[1, 1] == playerSymbol && grille[2, 2] == playerSymbol) ||
-                (grille[0, 2] == playerSymbol && grille[1, 1] == playerSymbol && grille[2, 0] == playerSymbol);
+            return (_grille[0, 0] == playerSymbol && _grille[1, 1] == playerSymbol && _grille[2, 2] == playerSymbol) ||
+                (_grille[0, 2] == playerSymbol && _grille[1, 1] == playerSymbol && _grille[2, 0] == playerSymbol);
         }
 
         public bool verifVictoire(char playerSymbol)
@@ -194,9 +199,9 @@ namespace MorpionApp
         }
 
         public bool verifEgalite() =>
-            grille[0, 0] != ' ' && grille[1, 0] != ' ' && grille[2, 0] != ' ' &&
-            grille[0, 1] != ' ' && grille[1, 1] != ' ' && grille[2, 1] != ' ' &&
-            grille[0, 2] != ' ' && grille[1, 2] != ' ' && grille[2, 2] != ' ';
+            _grille[0, 0] != ' ' && _grille[1, 0] != ' ' && _grille[2, 0] != ' ' &&
+            _grille[0, 1] != ' ' && _grille[1, 1] != ' ' && _grille[2, 1] != ' ' &&
+            _grille[0, 2] != ' ' && _grille[1, 2] != ' ' && _grille[2, 2] != ' ';
 
 
         public void finPartie(string msg)
