@@ -51,6 +51,6 @@ namespace MorpionApp
                 default:
                     goto GetKey1;
             }
-        }        
+        }
     }
 }
