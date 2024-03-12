@@ -42,7 +42,7 @@ namespace MorpionApp {
 
     public bool CheckRowWin(char symbol, int consecutiveSymbols) {
       for (int row = 0; row < _rows; row++) {
-        for (int col = 0; col < _columns - consecutiveSymbols; col++) {
+        for (int col = 0; col <= _columns - consecutiveSymbols; col++) {
           bool win = true;
           for (int i = 0; i < consecutiveSymbols; i++) {
             if (_grid[row, col + i] != symbol) {
