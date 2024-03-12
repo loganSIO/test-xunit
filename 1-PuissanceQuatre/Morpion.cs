@@ -17,16 +17,25 @@ namespace MorpionApp
             grille = new char[3, 3];
         }
 
+        private void InitializeGameBoard()
+        {
+            for (int row = 0; row < 3; row++)
+            {
+                for (int col = 0; col < 3; col++)
+                {
+                    grille[row, col] = ' ';
+                }
+            }
+        }
+
         public void BoucleJeu()
         {
-            while (!quiterJeu)
+            grille = new char[3, 3];
+
+            while (true)
             {
-                grille = new char[3, 3]
-                {
-                    { ' ', ' ', ' '},
-                    { ' ', ' ', ' '},
-                    { ' ', ' ', ' '},
-                };
+                InitializeGameBoard();
+
                 while (!quiterJeu)
                 {
                     if (tourDuJoueur)
