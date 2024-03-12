@@ -7,7 +7,7 @@ namespace MorpionApp {
     private bool _currentPlayerTurn = true;
 
     public Game() {
-      _board = new Board();
+      _board = new Board(3, 3);
       _player1 = new Player('X');
       _player2 = new Player('O');
     }
@@ -15,7 +15,7 @@ namespace MorpionApp {
     public void Start() {
       while (true) {
 
-        _board = new Board();
+        _board = new Board(3, 3);
 
         while (!_quitGame) {
           char currentPlayerSymbol = _currentPlayerTurn ? _player1.Symbol : _player2.Symbol;
@@ -28,7 +28,7 @@ namespace MorpionApp {
 
           _currentPlayerTurn = !_currentPlayerTurn;
 
-          if (_board.checkTie()) {
+          if (_board.CheckTie()) {
             EndOfGame("Aucun vainqueur, la partie se termine sur une égalité.");
             break;
           }
@@ -58,6 +58,7 @@ namespace MorpionApp {
     }
 
     private(int row, int column) HandlePlayerTurnInput(char playerSymbol, char EmptyCell) {
+
       var (row, column) = (0, 0);
       bool moved = false;
 
@@ -66,7 +67,7 @@ namespace MorpionApp {
         _board.Display();
         Console.WriteLine();
         Console.WriteLine("Choisir une case valide et appuyer sur [Entrée] pour placer votre symbole.");
-        Console.SetCursorPosition(column * 6 + 1, row * 4 + 1);
+        Console.SetCursorPosition(column * 4 + 2, row * 2 + 1);
 
         var key = Console.ReadKey(true).Key;
 

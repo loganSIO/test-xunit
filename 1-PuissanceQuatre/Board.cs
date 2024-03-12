@@ -1,22 +1,24 @@
 namespace MorpionApp {
   public class Board {
     private
-    const int BoardSizeRows = 3;
+    readonly int _rows;
     private
-    const int BoardSizeColumns = 3;
+    readonly int _columns;
     public
     const char EmptyCell = ' ';
 
     private char[, ] _grid;
 
-    public Board() {
-      _grid = new char[BoardSizeColumns, BoardSizeRows];
+    public Board(int rows, int columns) {
+      _rows = rows;
+      _columns = columns;
+      _grid = new char[_rows, _columns];
       InitializeBoard();
     }
 
     private void InitializeBoard() {
-      for (int row = 0; row < BoardSizeRows; row++) {
-        for (int col = 0; col < BoardSizeColumns; col++) {
+      for (int row = 0; row < _rows; row++) {
+        for (int col = 0; col < _columns; col++) {
           _grid[row, col] = EmptyCell;
         }
       }
@@ -24,53 +26,115 @@ namespace MorpionApp {
 
     public char[, ] Grid => _grid;
 
-    public void PlacePiece(int row, int column, char playerSymbol) {
-      _grid[row, column] = playerSymbol;
+    public bool PlacePiece(int row, int column, char symbol) {
+      if (row < 0 || row >= _rows || column < 0 || column >= _columns) {
+        return false;
+      }
+
+      if (_grid[row, column] != EmptyCell) {
+        return false;
+      }
+
+      _grid[row, column] = symbol;
+      return true;
     }
 
-    private bool CheckRowWin(char playerSymbol) {
-      for (int row = 0; row < BoardSizeRows; row++) {
-        if (_grid[row, 0] == playerSymbol && _grid[row, 1] == playerSymbol && _grid[row, 2] == playerSymbol) {
+    public bool CheckRowWin(char symbol) {
+      for (int row = 0; row < _rows; row++) {
+        bool win = true;
+        for (int col = 0; col < _columns; col++) {
+          if (_grid[row, col] != symbol) {
+            win = false;
+            break;
+          }
+        }
+
+        if (win) {
           return true;
         }
       }
+
       return false;
     }
 
-    private bool CheckColumnWin(char playerSymbol) {
-      for (int col = 0; col < BoardSizeColumns; col++) {
-        if (_grid[0, col] == playerSymbol && _grid[1, col] == playerSymbol && _grid[2, col] == playerSymbol) {
+    public bool CheckColumnWin(char symbol) {
+      for (int col = 0; col < _columns; col++) {
+        bool win = true;
+        for (int row = 0; row < _rows; row++) {
+          if (_grid[row, col] != symbol) {
+            win = false;
+            break;
+          }
+        }
+
+        if (win) {
           return true;
         }
       }
+
       return false;
     }
 
-    private bool CheckDiagonalWin(char playerSymbol) {
-      return (_grid[0, 0] == playerSymbol && _grid[1, 1] == playerSymbol && _grid[2, 2] == playerSymbol) ||
-        (_grid[0, 2] == playerSymbol && _grid[1, 1] == playerSymbol && _grid[2, 0] == playerSymbol);
+    public bool CheckDiagonalWin(char symbol) {
+      for (int i = 0; i < Math.Min(_rows, _columns); i++) {
+        if (_grid[i, i] != symbol) {
+          break;
+        }
+
+        if (i == Math.Min(_rows, _columns) - 1) {
+          return true;
+        }
+      }
+
+      for (int i = 0; i < Math.Min(_rows, _columns); i++) {
+        if (_grid[i, _columns - 1 - i] != symbol) {
+          break;
+        }
+
+        if (i == Math.Min(_rows, _columns) - 1) {
+          return true;
+        }
+      }
+
+      return false;
     }
 
-    public bool checkVictory(char playerSymbol) {
-      return CheckRowWin(playerSymbol) || CheckColumnWin(playerSymbol) || CheckDiagonalWin(playerSymbol);
+    public bool CheckTie() {
+      for (int row = 0; row < _rows; row++) {
+        for (int col = 0; col < _columns; col++) {
+          if (_grid[row, col] == EmptyCell) {
+            return false;
+          }
+        }
+      }
+      return true;
     }
 
-    public bool checkTie() =>
-      _grid[0, 0] != EmptyCell && _grid[1, 0] != EmptyCell && _grid[2, 0] != EmptyCell &&
-      _grid[0, 1] != EmptyCell && _grid[1, 1] != EmptyCell && _grid[2, 1] != EmptyCell &&
-      _grid[0, 2] != EmptyCell && _grid[1, 2] != EmptyCell && _grid[2, 2] != EmptyCell;
+    public bool checkVictory(char symbol)
+    {
+        return CheckRowWin(symbol) || CheckColumnWin(symbol) || CheckDiagonalWin(symbol);
+    }
 
     public void Display() {
       Console.WriteLine();
-      Console.WriteLine($" {_grid[0, 0]}  |  {_grid[0, 1]}  |  {_grid[0, 2]}");
-      Console.WriteLine("    |     |");
-      Console.WriteLine("----+-----+----");
-      Console.WriteLine("    |     |");
-      Console.WriteLine($" {_grid[1, 0]}  |  {_grid[1, 1]}  |  {_grid[1, 2]}");
-      Console.WriteLine("    |     |");
-      Console.WriteLine("----+-----+----");
-      Console.WriteLine("    |     |");
-      Console.WriteLine($" {_grid[2, 0]}  |  {_grid[1, 1]}  |  {_grid[2, 2]}");
+      for (int row = 0; row < _rows; row++) {
+        for (int col = 0; col < _columns; col++) {
+          Console.Write($" {_grid[row, col]} ");
+          if (col < _columns - 1) {
+            Console.Write("|");
+          }
+        }
+        Console.WriteLine();
+        if (row < _rows - 1) {
+          for (int col = 0; col < _columns; col++) {
+            Console.Write("---");
+            if (col < _columns - 1) {
+              Console.Write("+");
+            }
+          }
+          Console.WriteLine();
+        }
+      }
     }
   }
 }
