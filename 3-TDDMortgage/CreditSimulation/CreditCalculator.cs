@@ -1,8 +1,8 @@
 namespace CreditSimulation {
     public static class CreditCalculator {
-        private const decimal MinimumLoanAmount = 50000;
-        private const int MinimumDurationYears = 9;
-        private const int MaximumDurationYears = 25;
+        public const decimal MinimumLoanAmount = 50000;
+        public const int MinimumDurationYears = 9;
+        public const int MaximumDurationYears = 25;
 
         public static decimal CalculateTotalCostOfCredit(decimal loanAmount, int durationYears, decimal interestRate) {
             decimal monthlyPayment = CalculateMonthlyPayment(loanAmount, durationYears, interestRate);
