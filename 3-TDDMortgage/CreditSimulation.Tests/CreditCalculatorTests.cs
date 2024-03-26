@@ -8,5 +8,14 @@ namespace CreditSimulation.Tests {
 
         Assert.Equal(expectedMonthlyPayment, actualMonthlyPayment, 2);
         }
+
+        [Fact]
+        public void CalculateMonthlyPayment_LoanAmountBelowMinimum_ThrowsArgumentException() {
+            decimal loanAmount = 49000;
+            int durationYears = 20;
+            decimal interestRate = 5.0m;
+
+            Assert.Throws<ArgumentException>(() => CreditCalculator.CalculateMonthlyPayment(loanAmount, durationYears, interestRate));
+        }
     }
 }
