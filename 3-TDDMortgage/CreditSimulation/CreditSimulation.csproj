@@ -7,9 +7,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CreditSimulation.Tests\CreditSimulation.Tests.csproj" />
-  </ItemGroup>
-
-
 </Project>
