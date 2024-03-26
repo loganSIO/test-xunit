@@ -21,5 +21,12 @@ namespace CreditSimulation {
 
             return monthlyPayment;
         }
+
+        public static void GenerateCSVFile(string filePath, decimal totalCostOfCredit) {
+
+            using (StreamWriter writer = new StreamWriter(filePath)) {
+                writer.WriteLine("Total Cost of Credit, " + totalCostOfCredit);
+            }
+        }
     }
 }

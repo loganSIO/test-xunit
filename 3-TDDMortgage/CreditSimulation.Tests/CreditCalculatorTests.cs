@@ -38,7 +38,7 @@ namespace CreditSimulation.Tests {
 
         [Fact]
         public void GenerateCSVFile_ContainsTotalCostHeader() {
-            decimall totalCostOfCredit = 58389.38m;
+            decimal totalCostOfCredit = 58389.38m;
             string filePath = "test.csv";
 
             CreditCalculator.GenerateCSVFile(filePath, totalCostOfCredit);
