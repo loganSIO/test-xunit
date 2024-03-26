@@ -8,6 +8,10 @@ namespace CreditSimulation {
                 throw new ArgumentException($"Loan amount must be at least {MinimumLoanAmount}");
             }
 
+            if (durationYears < MinimumDurationYears) {
+                throw new ArgumentException($"Duration must be at least {MinimumDurationYears} years");
+            }
+
             int durationMonths = 12 * durationYears;
 
             decimal monthlyInterestRate = interestRate / 12 / 100;
