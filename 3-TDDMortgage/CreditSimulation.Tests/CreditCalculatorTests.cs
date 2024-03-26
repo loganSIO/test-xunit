@@ -1,18 +1,12 @@
 namespace CreditSimulation.Tests {
     public class CreditCalculatorTests {
+        [Theory]
+        [InlineData(100000, 20, 5.0, 659.96)]
+        public void CalculateMonthlyPayment(decimal loanAmount, int durationYears, decimal interestRate, decimal expectedMonthlyPayment) {
 
-        [Fact]
-        public void CalculateTotalCostOfCredit() {
+        decimal actualMonthlyPayment = CreditCalculator.CalculateMonthlyPayment(loanAmount, durationYears, interestRate);
 
-            decimal loanAmount = 100000;
-            int durationMonths = 12 * 20;
-            decimal interestRate = 5.0m;
-
-            decimal expectedTotalCost = 58389.38m;
-
-            decimal actualTotalCost = CreditCalculator.CalculateTotalCostOfCredit(loanAmount, durationMonths, interestRate);
-
-            Assert.Equal(expectedTotalCost, actualTotalCost, 2);
+        Assert.Equal(expectedMonthlyPayment, actualMonthlyPayment, 2);
         }
     }
 }
