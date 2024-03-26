@@ -38,10 +38,12 @@ namespace CreditSimulation.Tests {
 
         [Fact]
         public void GenerateCSVFile_ContainsTotalCostHeader() {
-            decimal totalCostOfCredit = 58389.38m;
             string filePath = "test.csv";
+            int durationYears = 20;
+            decimal interestRate = 5.0m;
+            decimal loanAmount = 100000;
 
-            CreditCalculator.GenerateCSVFile(filePath, totalCostOfCredit);
+            CreditCalculator.GenerateCSVFile(filePath, loanAmount, durationYears, interestRate);
 
             string[] lines = File.ReadAllLines(filePath);
             Assert.NotEmpty(lines);
@@ -51,15 +53,17 @@ namespace CreditSimulation.Tests {
 
         [Fact]
         public void GenerateCSVFile_IncludesMonthlyInstallments(){
-            decimal totalCostOfCredit = 58389.38m;
+            decimal loanAmount = 100000;
+            int durationYears = 20;
+            decimal interestRate = 5.0m;
             string filePath = "test.csv";
 
-            CreditCalculator.GenerateCSVFile(filePath, totalCostOfCredit);
+            CreditCalculator.GenerateCSVFile(filePath, loanAmount, durationYears, interestRate);
 
             string[] lines = File.ReadAllLines(filePath);
             Assert.NotEmpty(lines);
 
-            for (int i = 1; i < lines.Length; i++) {
+            for (int i = 2; i < lines.Length; i++) {
                 string[] columns = lines[i].Split(',');
                 Assert.Equal(3, columns.Length);
                 int installmentNumber;
