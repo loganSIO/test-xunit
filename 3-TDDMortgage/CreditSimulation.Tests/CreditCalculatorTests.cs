@@ -35,5 +35,18 @@ namespace CreditSimulation.Tests {
 
             Assert.Throws<ArgumentException>(() => CreditCalculator.CalculateMonthlyPayment(loanAmount, durationYears, interestRate));
         }
+
+        [Fact]
+        public void GenerateCSVFile_ContainsTotalCostHeader() {
+            decimall totalCostOfCredit = 58389.38m;
+            string filePath = "test.csv";
+
+            CreditCalculator.GenerateCSVFile(filePath, totalCostOfCredit);
+
+            string[] lines = File.ReadAllLines(filePath);
+            Assert.NotEmpty(lines);
+
+            Assert.StartsWith("Total Cost of Credit", lines[0]);
+        }
     }
 }
