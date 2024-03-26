@@ -30,7 +30,7 @@ namespace CreditSimulation.Tests {
         [Fact]
         public void CalculateMonthlyPayment_DurationAboveMaximum_ThrowsArgumentException() {
             decimal loanAmount = 100000;
-            int durationYears = 31;
+            int durationYears = 26;
             decimal interestRate = 5.0m;
 
             Assert.Throws<ArgumentException>(() => CreditCalculator.CalculateMonthlyPayment(loanAmount, durationYears, interestRate));
