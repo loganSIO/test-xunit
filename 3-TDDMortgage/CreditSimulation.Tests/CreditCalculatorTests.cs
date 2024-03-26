@@ -8,7 +8,7 @@ namespace CreditSimulation.Tests {
             int durationMonths = 12 * 20;
             decimal interestRate = 5.0m;
 
-            decimal expectedTotalCost = 38955.0m;
+            decimal expectedTotalCost = 58389.38m;
 
             decimal actualTotalCost = CreditCalculator.CalculateTotalCostOfCredit(loanAmount, durationMonths, interestRate);
 
