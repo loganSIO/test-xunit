@@ -48,5 +48,26 @@ namespace CreditSimulation.Tests {
 
             Assert.StartsWith("Total Cost of Credit", lines[0]);
         }
+
+        [Fact]
+        public void GenerateCSVFile_IncludesMonthlyInstallments(){
+            decimal totalCostOfCredit = 58389.38m;
+            string filePath = "test.csv";
+
+            CreditCalculator.GenerateCSVFile(filePath, totalCostOfCredit);
+
+            string[] lines = File.ReadAllLines(filePath);
+            Assert.NotEmpty(lines);
+
+            for (int i = 1; i < lines.Length; i++) {
+                string[] columns = lines[i].Split(',');
+                Assert.Equal(3, columns.Length);
+                int installmentNumber;
+                decimal capitalRepaid, remainingCapitalDue;
+                Assert.True(int.TryParse(columns[0], out installmentNumber));
+                Assert.True(decimal.TryParse(columns[1], out capitalRepaid));
+                Assert.True(decimal.TryParse(columns[2], out remainingCapitalDue));
+            }
+        }
     }
 }
